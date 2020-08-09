@@ -1,0 +1,2 @@
+model_checkpoint_path: "gauss_regVae_params_hidden_d_500_latent_d_75_mu_0.0_sigma_1.0__adamLR_0.0005.ckpt"
+all_model_checkpoint_paths: "gauss_regVae_params_hidden_d_500_latent_d_75_mu_0.0_sigma_1.0__adamLR_0.0005.ckpt"

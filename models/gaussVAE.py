@@ -18,21 +18,21 @@ def mlp(X, params):
 
 
 def compute_nll(x, x_recon_linear):
-    return tf.reduce_sum(tf.nn.sigmoid_cross_entropy_with_logits(x_recon_linear, x), reduction_indices=1, keep_dims=True)
+    return tf.reduce_sum(tf.nn.sigmoid_cross_entropy_with_logits(logits=x_recon_linear, labels=x), reduction_indices=1, keep_dims=True)
 
 
 def gauss2gauss_KLD(mu_post, sigma_post, mu_prior, sigma_prior):
     d = (mu_post - mu_prior)
-    d = tf.mul(d,d)
-    return -.5 * tf.reduce_sum(-tf.div(d + tf.mul(sigma_post,sigma_post),sigma_prior*sigma_prior) \
+    d = tf.multiply(d,d)
+    return -.5 * tf.reduce_sum(-tf.div(d + tf.multiply(sigma_post,sigma_post),sigma_prior*sigma_prior) \
                                     - 2*tf.log(sigma_prior) + 2.*tf.log(sigma_post) + 1., reduction_indices=1, keep_dims=True)
 
 
 def log_normal_pdf(x, mu, sigma):
     d = mu - x
-    d2 = tf.mul(-1., tf.mul(d,d))
-    s2 = tf.mul(2., tf.mul(sigma,sigma))
-    return tf.reduce_sum(tf.div(d2,s2) - tf.log(tf.mul(sigma, 2.506628)), reduction_indices=1, keep_dims=True)
+    d2 = tf.multiply(-1., tf.multiply(d,d))
+    s2 = tf.multiply(2., tf.multiply(sigma,sigma))
+    return tf.reduce_sum(tf.div(d2,s2) - tf.log(tf.multiply(sigma, 2.506628)), reduction_indices=1, keep_dims=True)
 
 
 ### Gaussian Mixture Model VAE Class
@@ -66,7 +66,7 @@ class GaussVAE(object):
         
         self.mu = mlp(h1, self.encoder_params['mu'])
         self.sigma = tf.exp(mlp(h1, self.encoder_params['sigma']))
-        self.z = self.mu + tf.mul(self.sigma, tf.random_normal(tf.shape(self.sigma)))
+        self.z = self.mu + tf.multiply(self.sigma, tf.random_normal(tf.shape(self.sigma)))
         x_recon_linear = mlp(self.z, self.decoder_params)
 
         return x_recon_linear
@@ -95,5 +95,5 @@ class GaussVAE(object):
 
 
     def get_samples(self, nImages):
-        z = self.prior['mu'] + tf.mul(self.prior['sigma'], tf.random_normal((nImages, tf.shape(self.decoder_params['w'][0])[0])))
+        z = self.prior['mu'] + tf.multiply(self.prior['sigma'], tf.random_normal((nImages, tf.shape(self.decoder_params['w'][0])[0])))
         return tf.sigmoid(mlp(z, self.decoder_params))

@@ -6,6 +6,7 @@ Experiment 1)
 train gaussVAE with dataset Fashion MNIST, and compare the likelihood of in-dist(Fashion MNIST test dataset) and OoD (MNIST test dataset)
 
 /// python train_reg_gaussVAE.py
+
 /// check ./fmnist/train_logs for the result
 
 Experiment 2)

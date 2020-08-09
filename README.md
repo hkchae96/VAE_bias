@@ -4,7 +4,9 @@ This repository contains implementations of variational autoencoders with Gaussi
 
 Experiment 1)
 train gaussVAE with dataset Fashion MNIST, and compare the likelihood of in-dist(Fashion MNIST test dataset) and OoD (MNIST test dataset)
-** python train_reg_gaussVAE.py
+
+/// python train_reg_gaussVAE.py
+/// check ./fmnist/train_logs for the result
 
 Experiment 2)
 train gaussVAE with dataset CIFAR10, and compare the likelihood of in-dist(CIFAR) and OoD (SVHN)
